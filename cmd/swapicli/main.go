@@ -2,6 +2,8 @@ package main
 
 import (
 	"flag"
+
+	swapi "github.com/cushind/swapi-cli/internal/swapi"
 )
 
 func main() {
@@ -18,4 +20,6 @@ func main() {
 	flag.StringVar(&outFilename, "output_filename", "", outFileUsage)
 
 	flag.Parse()
+
+	swapi.OutputStarshipsAndPilots(film, outFilename)
 }
