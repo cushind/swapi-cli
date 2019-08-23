@@ -3,6 +3,7 @@ package swapi
 import (
 	"encoding/json"
 	"errors"
+	"log"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -67,6 +68,8 @@ func SanitizeFilmName(filmName string) (string, error) {
 
 // GetFilm returns all film data by name filter
 func GetFilm(filmName string) (Film, error) {
+	log.Printf("Getting data on film %v\n", filmName)
+
 	film := Film{}
 	filmsResp := filmsResp{}
 
@@ -94,6 +97,8 @@ func GetFilm(filmName string) (Film, error) {
 			film = filmsResp.Results[0]
 		}
 	}
+
+	log.Println("Finished scraping film")
 
 	return film, nil
 }

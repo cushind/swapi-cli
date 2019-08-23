@@ -2,23 +2,21 @@ package swapi
 
 import (
 	"encoding/json"
-	"log"
-	"os"
 )
 
-// OutputStarshipsAndPilots writes the json for all starships and pilots, filtered
-// by film, to the outFile
-func OutputStarshipsAndPilots(filmName string, outFile string) {
+// GetStarshipsAndPilots returns the json for all starships and pilots, filtered
+// by film
+func GetStarshipsAndPilots(filmName string) (string, error) {
 	film, err := GetFilm(filmName)
 
 	if err != nil {
-		log.Fatalln(err.Error())
+		return "", err
 	}
 
 	starships, err := GetStarshipsByFilm(film)
 
 	if err != nil {
-		log.Fatalln(err.Error())
+		return "", err
 	}
 
 	film.StarshipData = starships
@@ -27,7 +25,7 @@ func OutputStarshipsAndPilots(filmName string, outFile string) {
 		shipPilots, err := GetPilotsByStarship(ship)
 
 		if err != nil {
-			log.Fatalln(err.Error())
+			return "", err
 		}
 
 		film.StarshipData[i].PilotData = shipPilots
@@ -36,23 +34,8 @@ func OutputStarshipsAndPilots(filmName string, outFile string) {
 	json, err := json.MarshalIndent(film, "", "    ")
 
 	if err != nil {
-		log.Fatalln(err.Error())
+		return "", err
 	}
 
-	if outFile == "" {
-		outFile = "starships_and_pilots.json"
-	}
-
-	f, err := os.Create(outFile)
-	if err != nil {
-		log.Fatalln(err.Error())
-	}
-
-	defer f.Close()
-
-	_, err = f.WriteString(string(json))
-
-	if err != nil {
-		log.Fatalln(err.Error())
-	}
+	return string(json), nil
 }

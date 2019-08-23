@@ -2,24 +2,30 @@ package main
 
 import (
 	"flag"
+	"log"
 
 	swapi "github.com/cushind/swapi-cli/internal/swapi"
 )
 
 func main() {
 	var film string
-	var outFilename string
 
 	const (
-		defaultFilm  = "Episode IV: A New Hope"
-		filmUsage    = "name of the film in which to generate starship and pilot data"
-		outFileUsage = "name of output file"
+		defaultFilm = "Episode IV: A New Hope"
+		filmUsage   = "name of the film in which to generate starship and pilot data"
 	)
 
 	flag.StringVar(&film, "film", defaultFilm, filmUsage)
-	flag.StringVar(&outFilename, "output_filename", "", outFileUsage)
-
 	flag.Parse()
 
-	swapi.OutputStarshipsAndPilots(film, outFilename)
+	log.Printf("Beginning scrape of starships and pilots for film: %v\n", film)
+	starshipAndPilots, err := swapi.GetStarshipsAndPilots(film)
+
+	if err != nil {
+		log.Fatalf(err.Error())
+	}
+
+	log.Printf("Starship and Pilot data for film %v\n%v", film, starshipAndPilots)
+	log.Println("")
+	log.Println("Done...")
 }

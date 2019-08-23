@@ -2,6 +2,7 @@ package swapi
 
 import (
 	"encoding/json"
+	"log"
 	"net/http"
 	"time"
 )
@@ -31,6 +32,8 @@ type Starship struct {
 
 // GetStarshipsByFilm returns a list of starships filtered by film or an error
 func GetStarshipsByFilm(film Film) ([]Starship, error) {
+	log.Printf("Getting data on starships filtered by film %v\n", film.Title)
+
 	starships := []Starship{}
 	starship := Starship{}
 
@@ -53,6 +56,8 @@ func GetStarshipsByFilm(film Film) ([]Starship, error) {
 			starships = append(starships, starship)
 		}
 	}
+
+	log.Println("Finished scraping starships")
 
 	return starships, nil
 }
