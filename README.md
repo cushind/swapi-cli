@@ -12,6 +12,14 @@ Usage of swapi-cli
 ## Makefile
 Makefile contains commands to build, test, build the docker container, and run.
 
+## Dockerhub
+```
+docker pull cushind/swapi-cli:tagname
+```
+
+## Helm
+Please refer to `deployments/helm/swapicli/README.md` for more info.
+
 ## Films
 - The Phantom Menace
 - Attack of the Clones
@@ -20,11 +28,6 @@ Makefile contains commands to build, test, build the docker container, and run.
 - The Empire Strikes Back
 - Return of the Jedi
 - The Force Awakens
-
-## Dockerhub
-```
-docker pull cushind/swapi-cli:tagname
-```
 
 ## launch.json for VSCode
 ```

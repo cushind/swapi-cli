@@ -1,0 +1,21 @@
+jobs:
+  - name: swapi-cli 
+    image:
+      repository: cushind/swapi-cli
+      tag: 1.0.0 
+      imagePullPolicy: IfNotPresent
+    schedule: "22 2 * * *"
+    args:
+      - "--film"
+      - "A New Hope"
+    resources:
+      limits:
+        cpu: 100m
+        memory: 512Mi
+      requests:
+        cpu: 100m
+        memory: 512Mi
+    failedJobsHistoryLimit: 2
+    successfulJobsHistoryLimit: 3
+    concurrencyPolicy: Allow
+    restartPolicy: OnFailure
